@@ -1,61 +1,114 @@
-# RTB AdTech Simulator 🎯
+# RTB-Simulator
 
-A Python-based Real-Time Bidding (RTB) simulation to understand how programmatic advertising auctions work behind the scenes. This project models a simplified AdTech ecosystem with Advertisers, Campaigns, Publishers, and an Ad Exchange.
-
-## Features
-
-✅ Simulates second-price auctions (industry standard)  
-✅ Models multiple advertisers and campaigns  
-✅ Tracks advertiser and campaign budgets  
-✅ Outputs realistic auction logs and budget consumption  
-✅ Easy to extend for geotargeting, CTR, eCPM logic, and pacing
-
-## Project Structure
-
-```
-RTB-AdTech-Simulator/
-│
-├── entities.py        # Advertiser and Campaign class definitions
-├── ad_exchange.py     # Auction logic for second-price auctions
-├── simulator.py       # Simulation engine that runs bid requests and prints results
-└── README.md          # Project overview and instructions
-```
-
-## Getting Started
-
-### 1. Requirements
-
-- Python 3.x
-
-### 2. Run the Simulation
-
-```bash
-python simulator.py
-```
-
-You’ll see 10 randomized auctions printed in your terminal.
-
-### 3. Sample Output
-
-```
-[AdTechX Exchange] Auction - BidRequest ID: 101, Keywords: ['sports', 'fitness']
-  > Bid from Nike Inc. (Campaign: 'RunMax Shoes') - $1.50
-  > Bid from Amazon Ads (Campaign: 'FitSpace') - $1.30
-  Winner: Nike Inc. ($1.30) [Second-highest: $1.30]
-  ✔️ Charged Nike Inc. Remaining: $4998.70
-```
-
-## Extension Ideas
-
-- Add CTR (Click-Through Rate) to compute eCPM = max_bid × CTR  
-- Introduce geolocation and device targeting  
-- Support both first-price and second-price modes  
-- Add pacing and frequency capping
-
-## License
-
-MIT License
+A lightweight simulation framework for **Real-Time Bidding (RTB)** in digital advertising. This version includes a basic **Flask API**, unit tests with **Pytest**, a **Dockerfile**, and a GitHub Actions-based **CI pipeline**.
 
 ---
 
-Built for educational purposes in understanding the core mechanics of AdTech RTB systems.
+## 🚀 Features
+
+- Simulate bidding using advertisers and campaigns
+- Run auctions based on keyword targeting
+- RESTful Flask API to handle bid requests
+- Unit testing with Pytest
+- Docker support for containerized deployment
+- GitHub Actions workflow for automated testing
+
+---
+
+## 🏗️ Project Structure
+
+```
+.
+├── .github/workflows/python-ci.yml   # GitHub Actions CI workflow
+├── .gitignore                        # Ignored files
+├── Dockerfile                        # Container build
+├── flask_api.py                      # Flask server with /bid endpoint
+├── test_simulator.py                 # Unit tests
+├── ad_exchange.py                    # AdExchange logic (pre-existing)
+├── entities.py                       # Campaign and Advertiser classes (pre-existing)
+```
+
+---
+
+## 🧪 Running Tests
+
+Make sure you have `pytest` installed:
+
+```bash
+pip install pytest
+pytest
+```
+
+---
+
+## 🌐 Running the Flask API
+
+Install dependencies and start the server:
+
+```bash
+pip install flask
+python flask_api.py
+```
+
+Send a sample bid request (e.g., using Postman or curl):
+
+```bash
+curl -X POST http://127.0.0.1:5000/bid \
+     -H "Content-Type: application/json" \
+     -d '{"id": 1, "keywords": ["sports", "shoes"]}'
+```
+
+---
+
+## 🐳 Run with Docker
+
+Build and run:
+
+```bash
+docker build -t rtb-simulator .
+docker run -p 5000:5000 rtb-simulator
+```
+
+---
+
+## ✅ CI Pipeline
+
+This repository uses **GitHub Actions** to automatically run unit tests on every push or pull request to the `main` branch.
+
+Workflow defined in: `.github/workflows/python-ci.yml`
+
+---
+
+## 📌 Example Bid Request
+
+**POST** `/bid`
+
+```json
+{
+  "id": 1,
+  "keywords": ["sports", "shoes"]
+}
+```
+
+**Response**
+
+```json
+{
+  "winner": "Nike Inc.",
+  "price": 0.01
+}
+```
+
+---
+
+## 🛠️ Requirements
+
+- Python 3.10
+- Flask
+- Pytest
+
+---
+
+## 👨‍💻 Author
+
+Yash Guleria ([@hsay5002](https://github.com/hsay5002))
